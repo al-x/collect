@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    hostname: nginx
+    ports:
+    - "8080:80"
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    hostname: redis
+    volumes:
+    - ./redis_data:/data
+
+# vim: et sw=2 ts=2 :
