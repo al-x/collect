@@ -59,7 +59,7 @@ make help
 
 #### Start the server containers
 ```
-make docker-compose-up
+make compose-up
 ```
 
 #### Generate test client traffic
@@ -69,5 +69,40 @@ make mock-requests
 
 #### Clean up containers
 ```
-make docker-compose-down
+make compose-down
+```
+
+#### Clear out redis data
+```
+make uniques-clean
+```
+
+#### Check today's uniques
+```
+make uniques-daily        
+```
+
+#### Check specific date's uniques
+```
+make uniques-daily-<YYYYMMDD>
+```
+
+example:
+```
+uniques-daily-20211225
+```
+
+#### Check last 30 days uniques
+```
+make uniques-monthly
+```
+
+#### Check 30 days before a specific date
+```
+make uniques-monthly-<YYYYMMDD>
+```
+
+example:
+```
+uniques-monthly-20211225
 ```
