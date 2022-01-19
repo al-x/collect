@@ -53,16 +53,19 @@ docker-shell-%::           ## shell into container. ex: docker-shell-nginx or do
 mock-requests::            ## generate randomized requests
 	@ ./mock_requests.py
 
-mock-single-request::      ## check last 30 days uniques
+mock-single-request::      ## generate a single request
 	@ curl "http://0.0.0.0:8080/collect?cid=$$(uuidgen | tr A-Z a-z)"
 
-uniques-clean::            ## clear out data
+mock-single-request-%::    ## above, with an arbitrary unix timestamp. ex: $(gdate +%s -d "$((RANDOM%60)) days ago")
+	@ curl "http://0.0.0.0:8080/collect?cid=$$(uuidgen | tr A-Z a-z)&d=$*"
+
+uniques-clean::            ## clear out redis data
 	@  rm -v ./redis_data/dump.rdb
 
 uniques-daily::            ## check today's uniques
 	@ curl 'http://0.0.0.0:8080/daily_uniques'
 
-uniques-daily-%::          ## check specific date's uniques. ex: uniques-daily-20211225
+uniques-daily-%::          ## check a specific date's uniques. ex: uniques-daily-20211225
 	@ curl "http://0.0.0.0:8080/daily_uniques?d=$*"
 
 uniques-monthly::          ## check last 30 days uniques
